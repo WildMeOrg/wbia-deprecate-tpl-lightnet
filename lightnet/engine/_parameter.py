@@ -6,7 +6,7 @@
 
 import logging
 import importlib.util
-from collections import Iterable
+from collections.abc import Iterable
 import torch
 
 __all__ = ['HyperParameters']

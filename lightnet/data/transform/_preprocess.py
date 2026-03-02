@@ -8,6 +8,7 @@
 
 import random
 import collections
+import collections.abc
 import logging
 import torch
 import numpy as np
@@ -52,7 +53,7 @@ class Letterbox(BaseMultiTransform):
     def __call__(self, data):
         if data is None:
             return None
-        elif isinstance(data, collections.Sequence):
+        elif isinstance(data, collections.abc.Sequence):
             return self._tf_anno(data)
         elif isinstance(data, Image.Image):
             return self._tf_pil(data)
@@ -183,7 +184,7 @@ class RandomCrop(BaseMultiTransform):
     def __call__(self, data):
         if data is None:
             return None
-        elif isinstance(data, collections.Sequence):
+        elif isinstance(data, collections.abc.Sequence):
             return self._tf_anno(data)
         elif isinstance(data, Image.Image):
             return self._tf_pil(data)
@@ -305,7 +306,7 @@ class RandomFlip(BaseMultiTransform):
     def __call__(self, data):
         if data is None:
             return None
-        elif isinstance(data, collections.Sequence):
+        elif isinstance(data, collections.abc.Sequence):
             return [self._tf_anno(anno) for anno in data]
         elif isinstance(data, Image.Image):
             return self._tf_pil(data)
@@ -466,7 +467,7 @@ class BramboxToTensor(BaseTransform):
 
     @classmethod
     def apply(cls, data, dimension, max_anno=None, class_label_map=None):
-        if not isinstance(data, collections.Sequence):
+        if not isinstance(data, collections.abc.Sequence):
             raise TypeError(
                 f'BramboxToTensor only works with <brambox annotation list> [{type(data)}]'
             )
